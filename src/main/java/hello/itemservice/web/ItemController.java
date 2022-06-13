@@ -23,6 +23,7 @@ public class ItemController {
     public String items(@ModelAttribute("itemSearch") ItemSearchCond itemSearch, Model model) {
         List<Item> items = itemService.findItems(itemSearch);
         model.addAttribute("items", items);
+
         return "items";
     }
 
@@ -30,6 +31,7 @@ public class ItemController {
     public String item(@PathVariable long itemId, Model model) {
         Item item = itemService.findById(itemId).get();
         model.addAttribute("item", item);
+
         return "item";
     }
 
@@ -43,6 +45,7 @@ public class ItemController {
         Item savedItem = itemService.save(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());
         redirectAttributes.addAttribute("status", true);
+
         return "redirect:/items/{itemId}";
     }
 
@@ -50,12 +53,14 @@ public class ItemController {
     public String editForm(@PathVariable Long itemId, Model model) {
         Item item = itemService.findById(itemId).get();
         model.addAttribute("item", item);
+
         return "editForm";
     }
 
     @PostMapping("/{itemId}/edit")
     public String edit(@PathVariable Long itemId, @ModelAttribute ItemUpdateDto updateParam) {
         itemService.update(itemId, updateParam);
+
         return "redirect:/items/{itemId}";
     }
 
