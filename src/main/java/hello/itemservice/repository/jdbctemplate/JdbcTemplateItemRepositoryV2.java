@@ -24,7 +24,7 @@ import java.util.Optional;
 /**
  * NamedParameterJdbcTemplate 사용 - 이름을 지정해서 파라미터를 바인딩 하는 기능
  *
- * SqlParameterSource 사용법 3가지
+ * SqlParameterSource 사용
  *  - BeanPropertySqlParameterSource
  *  - MapSqlParameterSource
  * Map
@@ -81,7 +81,7 @@ public class JdbcTemplateItemRepositoryV2 implements ItemRepository {
     @Override
     public Optional<Item> findById(Long id) {
 
-        String sql = "select id, item_name, price, quantity from Item where id = :?";
+        String sql = "select id, item_name, price, quantity from Item where id = :id";
 
         // queryForObject 는 결과가 없다면 항상 EmptyResultDataAccessException 에러를 터트린다.
         // 그래서 Optional.of() 를 사용해도 된다.
