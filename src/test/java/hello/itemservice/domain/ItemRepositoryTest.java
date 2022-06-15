@@ -5,19 +5,36 @@ import hello.itemservice.repository.ItemSearchCond;
 import hello.itemservice.repository.ItemUpdateDto;
 import hello.itemservice.repository.memory.MemoryItemRepository;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Transactional // @Transactional 애노테이션을 테스트에서 사용하면 스프링은 테스트를 트랜잭션 안에서 실행하고, 테스트가 끝나면 트랜잭션을 자동으로 롤백시킨다.
 @SpringBootTest // @SpringBootApplication 어노테이션을 찾아 해당 어노테이션이 적용된 클래스를 설정으로 사용한다.
 class ItemRepositoryTest {
 
     @Autowired
     ItemRepository itemRepository;
+/*
+    @Autowired
+    PlatformTransactionManager transactionManager;
+    TransactionStatus status;*/
+
+/*    @BeforeEach
+    void beforeEach() {
+        // 트랜잭션 시작
+        status = transactionManager.getTransaction(new DefaultTransactionDefinition());
+        // 트랜잭션 관리자는 PlatformTransactionManager 를 주입 받아서 사용
+    }*/
 
     // @AfterEach 는 각각의 테스트의 실행이 끝나는 시점에 호출된다.
     // 여기서는 메모리 저장소를 완전히 삭제해서 다음 테스트에 영향을 주지 않도록 초기화 한다.
@@ -27,6 +44,9 @@ class ItemRepositoryTest {
         if (itemRepository instanceof MemoryItemRepository) {
             ((MemoryItemRepository) itemRepository).clearStore();
         }
+
+        // 트랜잭션 롤백
+//        transactionManager.rollback(status);
     }
 
     @Test
