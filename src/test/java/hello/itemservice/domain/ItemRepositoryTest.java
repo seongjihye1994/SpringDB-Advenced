@@ -13,7 +13,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
+@SpringBootTest // @SpringBootApplication 어노테이션을 찾아 해당 어노테이션이 적용된 클래스를 설정으로 사용한다.
 class ItemRepositoryTest {
 
     @Autowired
