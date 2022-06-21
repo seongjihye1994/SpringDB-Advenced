@@ -36,8 +36,6 @@ public class ItemServiceApplication {
 	 * DataSource 를 직접 스프링 빈으로 등록
 	 *
 	 * 인메모리 디비 사용 - JVM 내에 DB를 만들고, 그 내부에 데이터를 쌓는다.
-	 *
-	 * @return
 	 */
 /*	@Bean
 	@Profile("test") // Test 케이스에서만 적용되도록
